@@ -1,0 +1,9 @@
+.activeBtn {
+  background-color: #4CAF50 !important;
+  color: white;
+}
+
+.inactiveBtn {
+  background-color: #ffc8c4 !important;
+  color: gray !important;
+}

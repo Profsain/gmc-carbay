@@ -1,4 +1,5 @@
 const Car = require('../models/Car');
+
 exports.createCar = async (req, res) => {
 try {
 const car = await Car.create({ ...req.body, postedBy:
@@ -18,6 +19,7 @@ res.status(400).json({ error: error.message });
 }
 };
 
+// get single car by id
 exports.getCarById = async (req, res) => {
 try {
 const car = await

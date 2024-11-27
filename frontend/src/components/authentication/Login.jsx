@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Spinner from "react-bootstrap/Spinner";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -22,6 +23,7 @@ function Login() {
     email: "",
     password: "",
   });
+  const [processing, setProcessing] = useState(false);
 
   // toggle show
   const toggleShow = () => {
@@ -43,6 +45,7 @@ function Login() {
 
   // handle form submit
   const handleSubmit = async (e) => {
+    setProcessing(true);
     e.preventDefault();
 
     // send data to backend
@@ -58,15 +61,24 @@ function Login() {
       if (response.ok) {
         const data = await response.json();
 
-        console.log(data);
+        setProcessing(false);
+
+        // store auth token and login user to local storage
+        localStorage.setItem("authToken", data.authToken);
+        localStorage.setItem("loginUser", JSON.stringify(data.user));
+
         alert("Login successful");
         handleClearInput();
 
         // navigate to login view
         navigate("/cars");
+      } else {
+        setProcessing(false);
+        alert("Login failed");
       }
     } catch (error) {
       console.error(error);
+      setProcessing(false);
     }
   };
 
@@ -74,7 +86,6 @@ function Login() {
     <div className="container my-5">
       <h1 className="mb-5 text-danger">Welcome! Login</h1>
       <Form onSubmit={handleSubmit}>
-
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -107,9 +118,14 @@ function Login() {
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Login
-        </Button>
+
+        {processing ? (
+          <Spinner animation="border" variant="danger" />
+        ) : (
+          <Button variant="primary" type="submit">
+            Login
+          </Button>
+        )}
       </Form>
     </div>
   );

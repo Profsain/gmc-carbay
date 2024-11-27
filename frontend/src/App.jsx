@@ -11,12 +11,9 @@ import AddCar from "./components/addcar/AddCar";
 import PageNotFound from "./components/notfound/PageNotFound";
 import Login from "./components/authentication/Login";
 import Register from "./components/authentication/Register";
-
+import CarDetails from "./components/listing/CarDetails";
 
 const App = () => {
-  const [authToken, setAuthToken] = useState(null);
-  const [loginUser, setLoginUser] = useState(null);
-  
   return (
     <>
       {/* header section  */}
@@ -30,6 +27,7 @@ const App = () => {
         <Route path="/blogs" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/add-car" element={<AddCar />} />
+        <Route path="/car-details/:id" element={<CarDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<PageNotFound />} />

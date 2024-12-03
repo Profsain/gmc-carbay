@@ -30,6 +30,8 @@ function AddCar() {
   const [processing, setProcessing] = useState(false);
 
   // handle form data change
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const handleFormDataChange = (e) => {
     if (e.target.id === "pictures") {
       const splitted = e.target.value.split(",");
@@ -63,7 +65,7 @@ function AddCar() {
 
     // send data to backend
     try {
-      const response = await fetch("http://localhost:5000/api/cars/addcar", {
+      const response = await fetch(`${apiUrl}/api/cars/addcar`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

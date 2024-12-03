@@ -8,9 +8,11 @@ const CarDetails = () => {
   const [carObj, setCarObj] = useState({});
   const [loading, setLoading] = useState(true);
 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
   const fetchCar = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/cars/${id}`);
+      const response = await fetch(`${apiUrl}/api/cars/${id}`);
       const data = await response.json();
 
       setCarObj(data);

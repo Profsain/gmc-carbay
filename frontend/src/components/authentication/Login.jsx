@@ -31,6 +31,7 @@ function Login() {
   };
 
   // handle form data change
+   const apiUrl = import.meta.env.VITE_API_URL;
   const handleFormDataChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -50,7 +51,7 @@ function Login() {
 
     // send data to backend
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${apiUrl}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
